@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPulse - Real-Time Developer Analytics & Collaboration Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js for real interactive telemetry rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i data-lucide="activity"></i>
+        </div>
+        <span class="brand-name">DevPulse</span>
+        <span class="badge-tag">v2.4 Live</span>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-label">Main Menu</div>
+        <a href="#" class="nav-item active" data-tab="overview">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard Overview</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="analytics">
+          <i data-lucide="bar-chart-3"></i>
+          <span>DORA Analytics</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="activity">
+          <i data-lucide="git-commit"></i>
+          <span>Live Commit Feed</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="team">
+          <i data-lucide="users"></i>
+          <span>Team Workspace</span>
+        </a>
+        
+        <div class="nav-section-label">System Admin</div>
+        <a href="#" class="nav-item" data-tab="settings">
+          <i data-lucide="settings"></i>
+          <span>Project Settings & API</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="logs">
+          <i data-lucide="terminal"></i>
+          <span>System Error Logs</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Devon Miller" class="avatar">
+          <div class="user-info">
+            <span class="user-name">Devon Miller</span>
+            <span class="user-role">Lead Engineer</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="page-title" id="page-title">Engineering Productivity Dashboard</h1>
+          <div class="status-indicator">
+            <span class="pulse-dot"></span>
+            <span class="status-text">WebSocket Stream Connected (12ms)</span>
+          </div>
+        </div>
+        
+        <div class="header-right">
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Search commits, branches, PRs...">
+          </div>
+          <button class="btn btn-secondary" id="theme-toggle">
+            <i data-lucide="sun"></i>
+          </button>
+          <button class="btn btn-primary" id="btn-new-project">
+            <i data-lucide="plus"></i>
+            <span>New Project</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard View Body -->
+      <div class="content-body" id="tab-content">
+        <!-- Top Stats Metrics Row -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Deployment Frequency</span>
+              <div class="metric-icon blue"><i data-lucide="rocket"></i></div>
+            </div>
+            <div class="metric-value">4.2 / day</div>
+            <div class="metric-trend positive">
+              <i data-lucide="trending-up"></i>
+              <span>+18.4% vs last week</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Lead Time for Changes</span>
+              <div class="metric-icon purple"><i data-lucide="clock"></i></div>
+            </div>
+            <div class="metric-value">1h 42m</div>
+            <div class="metric-trend positive">
+              <i data-lucide="trending-down"></i>
+              <span>-24m reduction</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Mean Time to Recover</span>
+              <div class="metric-icon emerald"><i data-lucide="shield-check"></i></div>
+            </div>
+            <div class="metric-value">18 mins</div>
+            <div class="metric-trend positive">
+              <i data-lucide="trending-down"></i>
+              <span>-5 mins optimization</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Change Failure Rate</span>
+              <div class="metric-icon rose"><i data-lucide="alert-triangle"></i></div>
+            </div>
+            <div class="metric-value">2.1%</div>
+            <div class="metric-trend positive">
+              <i data-lucide="trending-down"></i>
+              <span>-0.8% failure reduction</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Row: Interactive Analytics Chart & Real-Time Feed -->
+        <div class="dashboard-grid">
+          <div class="panel chart-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Repository Commit & Build Velocity</h3>
+                <p class="panel-subtitle">Real-time daily code push telemetry aggregated over 14 days</p>
+              </div>
+              <div class="btn-group">
+                <button class="btn-chip active">14 Days</button>
+                <button class="btn-chip">30 Days</button>
+                <button class="btn-chip">90 Days</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="velocityChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Real-Time Activity Feed -->
+          <div class="panel feed-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Live Telemetry Feed</h3>
+              <span class="live-badge">LIVE</span>
+            </div>
+            <div class="feed-list" id="activity-feed">
+              <!-- Dynamically populated via app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Active Workspaces & Team Members -->
+        <div class="bottom-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Active Repositories & Build Pipelines</h3>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Repository Name</th>
+                    <th>Default Branch</th>
+                    <th>CI Build Status</th>
+                    <th>Last Commit</th>
+                    <th>Open PRs</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="repo-cell">
+                        <i data-lucide="folder-git-2" class="repo-icon"></i>
+                        <div>
+                          <div class="repo-name">devpulse-api-gateway</div>
+                          <div class="repo-url">github.com/devpulse/api-gateway</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><code>main</code></td>
+                    <td><span class="status-badge success"><i data-lucide="check-circle-2"></i> Passing</span></td>
+                    <td>2 mins ago by <strong>Alex Vance</strong></td>
+                    <td><span class="pill-badge">3 Open</span></td>
+                    <td><button class="btn-sm">Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="repo-cell">
+                        <i data-lucide="folder-git-2" class="repo-icon"></i>
+                        <div>
+                          <div class="repo-name">devpulse-web-client</div>
+                          <div class="repo-url">github.com/devpulse/web-client</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><code>main</code></td>
+                    <td><span class="status-badge success"><i data-lucide="check-circle-2"></i> Passing</span></td>
+                    <td>14 mins ago by <strong>Sarah Chen</strong></td>
+                    <td><span class="pill-badge">5 Open</span></td>
+                    <td><button class="btn-sm">Inspect</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="repo-cell">
+                        <i data-lucide="folder-git-2" class="repo-icon"></i>
+                        <div>
+                          <div class="repo-name">devpulse-auth-service</div>
+                          <div class="repo-url">github.com/devpulse/auth-service</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><code>main</code></td>
+                    <td><span class="status-badge warning"><i data-lucide="alert-circle"></i> Building</span></td>
+                    <td>1 hour ago by <strong>Sam Taylor</strong></td>
+                    <td><span class="pill-badge">1 Open</span></td>
+                    <td><button class="btn-sm">Inspect</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

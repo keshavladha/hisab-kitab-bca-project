@@ -1,0 +1,5 @@
+node_modules/
+.env
+*.log
+.DS_Store
+fintrack_app/node_modules/
