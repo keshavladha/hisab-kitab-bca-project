@@ -1,0 +1,13 @@
+{
+  "name": "hisab-kitab-bca-project",
+  "version": "1.0.0",
+  "description": "HisabKitab - Smart Personal Expense & Income Manager (BCA Major Project)",
+  "main": "fintrack_app/server.js",
+  "scripts": {
+    "start": "node fintrack_app/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

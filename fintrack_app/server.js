@@ -217,3 +217,5 @@ app.put('/api/user/profile', (req, res) => {
 app.listen(PORT, () => {
   console.log(`HisabKitab application server running at http://localhost:${PORT}`);
 });
+
+module.exports = app;
